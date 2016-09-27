@@ -1,0 +1,269 @@
+<mvc:View controllerName="hcp.controller.Worklist" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.ui.table" xmlns:semantic="sap.m.semantic" xmlns:uxap="sap.uxap"
+	xmlns:footerbar="sap.ushell.ui.footerbar">
+	<semantic:FullscreenPage id="page" navButtonPress="onNavBack" showNavButton="false" title="{i18n>worklistViewTitle}" enableScrolling="false">
+		<semantic:content>
+			<uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" showHeaderContent="true" height="30%">
+				<uxap:headerTitle>
+					<uxap:ObjectPageHeader id="headerForTest" headerDesign="Light" objectTitle="Denise Smith" objectImageShape="Circle"
+						objectSubtitle="Manager, HCM" objectImageURI="resources/imgs/imageID_275314.png" isObjectIconAlwaysVisible="false"
+						isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false" isActionAreaAlwaysVisible="true" showPlaceholder="true"
+						class="objectPageBackground">
+						<uxap:navigationBar>
+							<m:Bar>
+								<m:contentLeft>
+									<m:Button icon="sap-icon://nav-back"></m:Button>
+								</m:contentLeft>
+								<m:contentMiddle>
+									<m:Text text="Employee Profile"/>
+								</m:contentMiddle>
+							</m:Bar>
+						</uxap:navigationBar>
+						<uxap:actions>
+							<uxap:ObjectPageHeaderActionButton icon="sap-icon://tree" text="tree"/>
+							<uxap:ObjectPageHeaderActionButton icon="sap-icon://action" text="action"/>
+						</uxap:actions>
+					</uxap:ObjectPageHeader>
+				</uxap:headerTitle>
+				<uxap:headerContent>
+					<layout:VerticalLayout>
+						<m:ObjectStatus title="Address" text="BLR.01, B2.023"/>
+						<m:ObjectStatus title="Office phone" text="+91-90100-98100"/>
+						<m:ObjectStatus title="Email" text="denise@sap.com"/>
+					</layout:VerticalLayout>
+					<layout:HorizontalLayout>
+						<m:Image width="20px" height="20px" src="resources/imgs/linkedInIcon.png"/>
+						<m:Image width="20px" height="20px" src="resources/imgs/facebookIcon.png"/>
+						<m:Image width="20px" height="20px" src="resources/imgs/twitterIcon.png"/>
+					</layout:HorizontalLayout>
+					<layout:VerticalLayout>
+						<m:Label text="Bangalore, India"/>
+						<m:Label text="3:00 PM, Friday"/>
+					</layout:VerticalLayout>
+					<m:ObjectStatus title="Salary Package Approval" text="Pending" state="Warning"/>
+				</uxap:headerContent>
+				<uxap:sections>
+					<uxap:ObjectPageSection title="2014 Goals Plan">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title=" "></uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+					<uxap:ObjectPageSection title="Personal">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title="Connect">
+								<uxap:blocks></uxap:blocks>
+							</uxap:ObjectPageSubSection>
+							<uxap:ObjectPageSubSection id="paymentSubSection" title="Payment information">
+								<uxap:blocks></uxap:blocks>
+								<uxap:moreBlocks></uxap:moreBlocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+				</uxap:sections>
+			</uxap:ObjectPageLayout>
+			<m:Carousel id="salaryCarousel" showPageIndicator="false" showBusyIndicator="false">
+				<m:pages>
+					<m:VBox>
+						<m:HBox justifyContent="Center" height="5%" alignContent="Center">
+							<m:items>
+								<m:Title text="The value of your Total Compensation Structure is 702,888.00 INR" class="sapUiResponsiveMargin titleFormat"></m:Title>
+							</m:items>
+						</m:HBox>
+						<m:HBox>
+							<m:VBox>
+								<m:HBox alignItems="Center" justifyContent="End" width="95%">
+									<m:Label text="Select" class="sapUiResponsiveMargin"></m:Label>
+									<m:ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
+										<core:Item key="{ProductId}" text="{Name}"/>
+									</m:ComboBox>
+								</m:HBox>
+								<m:ScrollContainer width="100%" height="15em" vertical="true">
+									<m:Table id="table" width="auto" class="sapUiResponsiveMargin" noDataText="{worklistView>/tableNoDataText}"
+										busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="false" growingScrollToLoad="true" updateFinished="onUpdateFinished"
+										items="{ path:'allowancesModel>/' }">
+										<m:columns>
+											<m:Column width="50%" hAlign="Left"><m:Text text="Component"/></m:Column>
+											<m:Column width="70%" hAlign="Right"><m:Text text="Allowance"/></m:Column>
+											<m:Column width="20%" hAlign="Center"><m:Text text="Currency"/></m:Column>
+										</m:columns>
+										<m:items>
+											<m:ColumnListItem type="Navigation" press="onPress">
+												<m:cells>
+													<m:Text text="{allowancesModel>component}"/>
+													<m:Text text="{allowancesModel>amount}"/>
+													<m:Text text="{allowancesModel>curr}"/>
+												</m:cells>
+											</m:ColumnListItem>
+										</m:items>
+									</m:Table>
+								</m:ScrollContainer>
+								<m:HBox justifyContent="Start" alignContent="Center" class="sapUiResponsiveMargin">
+									<m:Button text="Print" press="onPress" width="10em"/>
+									<m:Button text="Change this package" press="handlleChangePackageDetail" width="15em"/>
+								</m:HBox>
+							</m:VBox>
+							<m:VBox>
+								<m:HBox alignItems="Center" justifyContent="End" width="95%">
+									<m:Label text="Select" class="sapUiResponsiveMargin"></m:Label>
+									<m:ComboBox items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
+										<core:Item key="{ProductId}" text="{Name}"/>
+									</m:ComboBox>
+								</m:HBox>
+								<m:Table id="table2" width="auto" class="sapUiResponsiveMargin" noDataText="{worklistView>/tableNoDataText}"
+									busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true" updateFinished="onUpdateFinished">
+									<m:columns>
+										<m:Column width="50%" hAlign="Left"><m:Text text="Component"/></m:Column>
+										<m:Column width="70%" hAlign="Right"><m:Text text="Allowance"/></m:Column>
+										<m:Column width="20%" hAlign="Center"><m:Text text="Currency"/></m:Column>
+									</m:columns>
+									<m:items>
+										<m:ColumnListItem type="Navigation" press="onPress">
+											<m:cells>
+												<m:Text text="Basic Salary"/>
+												<m:Text text="246,010.80"/>
+												<m:Text text="INR"/>
+											</m:cells>
+										</m:ColumnListItem>
+										<m:ColumnListItem type="Navigation" press="onPress">
+											<m:cells>
+												<m:Text text="House Rent Allowance"/>
+												<m:Text text="98,404.32"/>
+												<m:Text text="INR"/>
+											</m:cells>
+										</m:ColumnListItem>
+										<m:ColumnListItem type="Navigation" press="onPress">
+											<m:cells>
+												<m:Text text="Children Education Allowance"/>
+												<m:Text text="1,200.00"/>
+												<m:Text text="INR"/>
+											</m:cells>
+										</m:ColumnListItem>
+										<m:ColumnListItem type="Navigation" press="onPress">
+											<m:cells>
+												<m:Text text="Medical Reimbursement"/>
+												<m:Text text="15,000.00"/>
+												<m:Text text="INR"/>
+											</m:cells>
+										</m:ColumnListItem>
+										<m:ColumnListItem type="Navigation" press="onPress">
+											<m:cells>
+												<m:Text text="Transport Allowance"/>
+												<m:Text text="9,600.00"/>
+												<m:Text text="INR"/>
+											</m:cells>
+										</m:ColumnListItem>
+										<m:ColumnListItem type="Navigation" press="onPress">
+											<m:cells>
+												<m:Text text="Special Allowance"/>
+												<m:Text text="332,672.88"/>
+												<m:Text text="INR"/>
+											</m:cells>
+										</m:ColumnListItem>
+									</m:items>
+								</m:Table>
+								<m:HBox justifyContent="Start" alignContent="Center" class="sapUiResponsiveMargin">
+									<m:Button text="Print" press="onPress" width="10em"/>
+									<m:Button text="Change this package" press="handlleChangePackageDetail" width="15em"/>
+								</m:HBox>
+							</m:VBox>
+						</m:HBox>
+						<m:HBox justifyContent="SpaceAround" alignContent="Center" class="sapUiResponsiveMargin">
+							<m:HBox justifyContent="Start" alignContent="Center">
+								<m:Label text="Send Package" class="sapUiResponsiveMargin"></m:Label>
+								<m:ComboBox class="sapUiResponsiveMargin" items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
+									<core:Item key="{ProductId}" text="{Name}"/>
+								</m:ComboBox>
+							</m:HBox>
+							<m:Button text="Submit" press="onPress" width="10em" class="sapUiResponsiveMargin"/>
+							<m:Button text="Print Packages" press="onPress" width="15em" class="sapUiResponsiveMargin"/>
+						</m:HBox>
+					</m:VBox>
+					<m:VBox>
+						<m:HBox justifyContent="Center" height="5%" alignContent="Center">
+							<m:items>
+								<m:Title text=""></m:Title>
+							</m:items>
+						</m:HBox>
+						<m:HBox>
+							<m:VBox>
+								<m:ScrollContainer width="100%" height="15em" vertical="true">
+									<m:Table id="table11" width="auto" class="sapUiResponsiveMargin" noDataText="{worklistView>/tableNoDataText}"
+										busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="false" growingScrollToLoad="true" updateFinished="onUpdateFinished"
+										items="{ path:'allowancesModel>/' }" mode="MultiSelect">
+										<m:columns>
+											<m:Column width="100%" hAlign="Left"><m:Text text="Elegible Components"/></m:Column>
+											<m:Column width="70%" hAlign="Right" visible="false"><m:Text text="Allowance"/></m:Column>
+											<m:Column width="20%" hAlign="Center" visible="false"><m:Text text="Currency"/></m:Column>
+										</m:columns>
+										<m:items>
+											<m:ColumnListItem type="Navigation" press="onPress">
+												<m:cells>
+													<m:Text text="{allowancesModel>component}"/>
+													<m:Text text="{allowancesModel>amount}"/>
+													<m:Text text="{allowancesModel>curr}"/>
+												</m:cells>
+											</m:ColumnListItem>
+										</m:items>
+									</m:Table>
+								</m:ScrollContainer>
+							</m:VBox>
+							<m:VBox justifyContent="Center" alignContent="Center">
+								<m:Button press="handleRight" icon="sap-icon://navigation-right-arrow" class="sapUiResponsiveMargin"/>
+								<m:Button press="handleLeft" icon="sap-icon://navigation-left-arrow" class="sapUiResponsiveMargin"/>
+							</m:VBox>
+							<m:VBox>
+								<m:ScrollContainer width="100%" height="15em" vertical="true">
+									<m:Table id="table22" width="auto" class="sapUiResponsiveMargin" noDataText="{worklistView>/tableNoDataText}"
+										busyIndicatorDelay="{worklistView>/tableBusyDelay}" mode="MultiSelect" items="{ path:'saveModel>/' }" growing="true"
+										growingScrollToLoad="true" updateFinished="onUpdateFinished" selectionChange="handleItemSel">
+										<m:columns>
+											<m:Column width="70%" hAlign="Left"><m:Text text="Total Package Value is .... INR"/></m:Column>
+											<m:Column width="50%" hAlign="Right"><m:Text text=""/></m:Column>
+											<m:Column width="20%" hAlign="Center"><m:Text text=""/></m:Column>
+										</m:columns>
+										<m:items>
+											<m:ColumnListItem type="Navigation">
+												<m:cells>
+													<m:Text text="{saveModel>component}"/>
+													<m:Text text="{saveModel>amount}"/>
+													<m:Text text="{saveModel>curr}"/>
+												</m:cells>
+											</m:ColumnListItem>
+										</m:items>
+									</m:Table>
+								</m:ScrollContainer>
+								<m:HBox justifyContent="End" alignContent="Center" class="sapUiResponsiveMargin">
+									<m:Button text="Save" press="onPress" width="10em"/>
+									<m:Button text="Back to Compare Screen" press="handlleChangePackageOverview" width="15em"/>
+								</m:HBox>
+							</m:VBox>
+						</m:HBox>
+						<m:VBox justifyContent="SpaceAround" alignContent="Center" class="sapUiResponsiveMargin">
+							<m:HBox justifyContent="Start" alignContent="Center">
+								<m:Token id="appToken" editable="false" selected="true" class="editToken" text="Edit Medical Reimbursement"></m:Token>
+							</m:HBox>
+							<m:HBox justifyContent="Start" alignContent="Center">
+								<m:Label text="Input" class="sapUiResponsiveMargin labelAlign"></m:Label>
+								<m:Input class="sapUiResponsiveMargin"></m:Input>
+								<m:Label text="INR" class="sapUiResponsiveMargin labelAlign"></m:Label>
+							</m:HBox>
+							<m:HBox justifyContent="End" alignContent="Center">
+								<m:Button text="Accept" press="onPress" width="10em" class="sapUiResponsiveMargin"/>
+								<m:Button text="Reset" press="onPress" width="10em" class="sapUiResponsiveMargin"/>
+							</m:HBox>
+						</m:VBox>
+					</m:VBox>
+				</m:pages>
+			</m:Carousel>
+		</semantic:content>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+		<semantic:shareInJamAction>
+			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press="onShareInJamPress"/>
+		</semantic:shareInJamAction>
+		<semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id="shareTile" title="{worklistView>/saveAsTileTitle}"/>
+		</semantic:saveAsTileAction>
+	</semantic:FullscreenPage>
+</mvc:View>
